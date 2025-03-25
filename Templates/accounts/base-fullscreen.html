@@ -1,0 +1,73 @@
+{% load i18n static dashboard_tags %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% load dashboard_tags %}
+{% get_direction as direction %}
+{% get_admin_setting as admin_setting %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" sizes="76x76"  href="{% static 'icon/Junction_Dental.png'%}" type="image/svg+xml">
+
+  <title>
+Mpesa 
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="{% static 'accounts/css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'accounts/css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- <link href="{% static 'clinic\css\main.min.css' %}" rel="stylesheet" /> -->
+  <!-- Font Awesome Icons -->
+ <!-- CSS Files -->
+  <link id="pagestyle" href="{% static 'accounts/css/argon-dashboard.css' %}" rel="stylesheet" />
+  <link id="pageformstyle" href="{% static 'accounts/css/forms.css' %}" rel="stylesheet" />
+  <link id="widgets" href="{% static 'accounts/css/widgets.css' %}" rel="stylesheet" />
+ {% block extrahead %}{% endblock extrahead %}
+
+  {% block extrastyle %}{% endblock extrastyle %}
+
+</head>
+
+<body class="navbar-vertical  g-sidenav-show bg-gray w-100">
+{% block overlay %}{% endblock overlay %}
+
+{% block sidebar %}
+      {% include "accounts/includes/sidebar.html" %}
+    {% endblock sidebar %}
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+      {% block navigation %}
+      {% include "accounts/includes/navigation.html" %}
+    {% endblock navigation %}
+
+    
+    {% block content %}
+    {% endblock content %}
+</main>
+{% include "accounts/includes/fixed-plugin.html" %}
+
+
+
+
+  {% include "accounts/includes/scripts.html" %}
+
+
+  <!-- Specific JS goes HERE --> 
+  {% block scripts %}{% endblock scripts %}
+
+
+
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+</body>
+ <script src="{% static 'accounts/js/argon-dashboard.min.js' %}"></script>
+</html>
