@@ -204,7 +204,6 @@ class MpesaClient:
 
 		phone_number = format_phone_number(phone_number)
 		url = api_base_url( ) + 'mpesa/b2c/v3/paymentrequest'
-
 		business_short_code = mpesa_config('MPESA_SHORTCODE_B')
 
 		party_a = business_short_code

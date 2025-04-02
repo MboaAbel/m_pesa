@@ -31,15 +31,11 @@ class MpesaResponse(Response):
 	resmsg = ''
 	app_key = ''
 	Status_Message = ''
-	
-	
-	
 
 
 def mpesa_response(r):
 	"""
-	Create MpesaResponse object from requests.Response object
-	
+	Create MpesaResponse object from requests.Response object	
 	Arguments:
 		r (requests.Response) -- The response to convert
 	"""
@@ -65,7 +61,7 @@ def mpesa_response(r):
 def mpesa_config(key):
 	"""
 	Get Mpesa configuration variable with the matching key
-	
+
 	Arguments:
 		key (str) -- The configuration key
 
@@ -114,7 +110,7 @@ def api_base_url():
 def B_generate_access_token_request(consumer_key=None, consumer_secret=None):
 	"""
 	Make a call to OAuth API to generate access token
-	
+
 	Arguments:
 		consumer_key (str) -- (Optional) The Consumer Key to use
 		consumer_secret (str) -- (Optional) The Consumer Secret to use
@@ -136,7 +132,7 @@ def B_generate_access_token_request(consumer_key=None, consumer_secret=None):
 		raise MpesaConnectionError('Connection failed')
 	except Exception as ex:
 		return ex.message
-	
+
 	return r
 
 def B_generate_access_token():
@@ -183,7 +179,7 @@ def B_mpesa_access_token():
 		if minutes > 50:
 			# Access token expired
 			B_access_token = B_generate_access_token()
-	
+
 	return B_access_token.token
 # //////////////////////   PayBill Auth Request /////////// 
 
@@ -194,7 +190,7 @@ def B_mpesa_access_token():
 def generate_access_token_request(consumer_key=None, consumer_secret=None):
 	"""
 	Make a call to OAuth API to generate access token
-	
+
 	Arguments:
 		consumer_key (str) -- (Optional) The Consumer Key to use
 		consumer_secret (str) -- (Optional) The Consumer Secret to use
@@ -216,7 +212,7 @@ def generate_access_token_request(consumer_key=None, consumer_secret=None):
 		raise MpesaConnectionError('Connection failed')
 	except Exception as ex:
 		return ex.message
-	
+
 	return r
 
 def generate_access_token():
@@ -263,13 +259,13 @@ def mpesa_access_token():
 		if minutes > 50:
 			# Access token expired
 			access_token = generate_access_token()
-	
+
 	return access_token.token
 
 def format_phone_number(phone_number):
 	"""
 	Format phone number into the format 2547XXXXXXXX
-	
+
 	Arguments:
 		phone_number (str) -- The phone number to format
 	"""
@@ -281,8 +277,7 @@ def format_phone_number(phone_number):
 def encrypt_security_credential(credential):
 	"""
 	Generate an encrypted security credential from a plaintext value
-	
-	Arguments:
+		Arguments:
 		credential (str) -- The plaintext credential display
 	"""
 

@@ -27,8 +27,8 @@
                               <div class="row gx-4">
                                 <div class="col-auto">
                                   <div class="avatar avatar-xl position-relative">
-                                    <img src="{{ user.profile_photo.url}}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                                  </div>
+                                    <!--<img src="{{ user.profile_photo.url}}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                                  --></div>
                                 </div>
                                 <div class="col-auto my-auto">
                                   <div class="h-100">
@@ -115,7 +115,7 @@
 
                                         <a href="{% url 'user_profile' %}" class="{% if request.resolver_match.url_name == 'appointments' %}active{% endif %} btn btn-block apt-btn>
                                             <i class="fas fa-calendar-check"></i>
-                                            <span>Appointments</span>
+                                            <span>Accounts</span>
                                         </a>
 
 
