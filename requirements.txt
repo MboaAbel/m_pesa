@@ -25,7 +25,6 @@ django-allauth==65.4.1
 django-browser-reload==1.18.0
 django-celery-beat==2.7.0
 django-ckeditor==6.7.2
-django-ckeditor-5==0.2.16
 django-cors-headers==4.6.0
 django-crispy-forms==2.3
 django-js-asset==3.0.1
