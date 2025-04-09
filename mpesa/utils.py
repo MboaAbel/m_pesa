@@ -172,7 +172,7 @@ def B_mpesa_access_token():
 	B_access_token = AccessToken.objects.first()
 	if B_access_token == None:
 		# No access token found
-		B_access_token = generate_access_token()
+		B_access_token = B_generate_access_token()
 	else:
 		delta = timezone.now() - B_access_token.created_at
 		minutes = (delta.total_seconds()//60)

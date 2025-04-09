@@ -1,37 +1,36 @@
-{% extends 'core/base.html' %}
+{% extends 'mpesa/mpesa-sidebar.html' %}
 
 {% block head_title %}{{ title }}{% endblock %}
 
-{% block content %}
+{% block main %}
 {%load static%}
 
-<section  style="margin-left:10%;background-color:rgba(0,0,0,0.2);
-        opacity:90%; border-radius:40px;backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,0.2);z-index:10;display:flex;box-shadow:40px 40px 40px 80px rgba(0,0,0,0.3);" class="home-section align-items-center" id="home">
-            <div class="container">
+
+
+
+
+ <div class="mb-5 home-section align-items-center"style="color:#000;font-weight:bold; font-family:Comic Sans Mn;background-color:rgba(0,0,0,0.2);opacity:90%; border-radius:36px;backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,0.2);
+        z-index:10;display:flex;box-shadow:40px 40px 40px 80px rgba(0,0,0,0.3);">
+<div class="container">
                <div class="row align-items-center">
 
             {% if request.user.is_authenticated %}
-                   <div class="home-txt">
-                 <a href="/setting" style="display:flex;flex-direction:row; ">
-                        <h3  style="font-weight:bold; width:100%; text-align:center;border-radius:7px;" class="bty ">   <img style=" opacity:98%; margin-bottom:5px; position:center; box-shadow: 34px 8px 80px green; width:80px; height:80px;border-radius: 100%;" src="{{ user.address.profileimg.url }} " >
-                         Mboa-ID: {{user.account}}  </h3>
-                 </a>
-                        </div>
+
+<p>Karibu Sleek</p>
 {% endif %}
 
                                   <div class="home-text">
-<form  method="POST"  action="post-pay-bill" style="background-image:url({% static 'img/shootCenterBanner.png'%});border: 3px solid #001100;opacity:100%;width:100%;color:white;margin: 2px; padding:5%; border-radius:40px;">
+<form  method="POST"  action="stk-pay-bill" style="background-image:url({% static 'img/shootCenterBanner.png'%});opacity:100%;width:80%;">
 <div style="display:flex;flex-direction:row;">
-<p style=" font-size:100%; font-weight:500px; color: #001100;margin-top:10px;margin-right:6px; width:100%;"> <img style="margin-bottom:5px; position:center; box-shadow: 34px 8px 80px green; width:40px; height:40px;border-radius: 100%;" src="{% static 'img/Mboa Academy.jpg' %} " > Mboapay</p>
-<img style=" margin-left:6px; width:100px;  height:50px;"   src="{%static '/img/mpesa.png'%}">
+<img style=" margin-left:6px;margin-top:8vh; width:100px;  height:50px;"   src="{%static '/icons/M-PESA_LOGO-01.svg.png'%}">
 </div>
 {% csrf_token %}
 
 <div style="margin-top:30px;">
-    <input type="text" id="phone_number"  value="0{{user.address.postal_code}}" name="phone_number" placeholder="phone number" class="bty form-control" required autofocus    style="font-family:Comic Sans Mn; width:80%; font-weight:bold;color:#001100;font-size:16px;text-align:center; margin-top:5px;border-radius:10px;height:7vh; "><br>
-    <input type="text"  id="account_reference" value="{{user.account}}" required name="account_reference" class=" btn form-control" placeholder="Mboa-Id :{{user.account}} " style="font-family:Comic Sans Mn; width:80%; font-weight:bold;color:#001100;font-size:16px;text-align:center; margin-top:20px;border-radius:10px;height:7vh; ">
-<input type="number" id="amount"  value="500" required name="amount" class=" btn form-control" placeholder="Amount " style="font-weight:bold;font-family:Comic Sans Mn;font-size:16px;text-align:center;width:80%; height:7vh;margin-top:20px; margin-bottom:70px;border-radius:10px;border:2px solid #6BBE4E;"></div>
-    <button type="submit" class="bty" style="width:80%;font-weight:bold; border-radius:30px; color:#001100; background: #C9FEC0; cursor:pointer;border:2px solid #000;"> Pay-Bill</button>
+    <input type="text" id="phone_number"  value="" name="phone_number" placeholder="phone number" class="bty form-control" required autofocus    style="font-family:Comic Sans Mn; width:100%; font-weight:bold;color:#001100;font-size:16px;text-align:center; margin-top:5px;border-radius:10px;height:7vh; "><br>
+    <input type="text"  id="account_reference" value="{{user.account}}" required name="account_reference" class=" bty form-control" placeholder="Mboa-Id :{{user.account}} " style="font-family:Comic Sans Mn; width:100%; font-weight:bold;color:#001100;font-size:16px;text-align:center; margin-top:20px;border-radius:10px;height:7vh; ">
+<input type="number" id="amount"  value="500" required name="amount" class=" btn form-control" placeholder="Amount " style="font-weight:bold;font-family:Comic Sans Mn;font-size:16px;text-align:center;width:100%; height:7vh;margin-top:20px; margin-bottom:70px;border-radius:10px;"></div>
+    <button type="submit" class="bty" style="width:80%;font-weight:bold;height:7vh; border-radius:30px; color:#001100; background: #C9FEC0; cursor:pointer;border:2px solid #000;"> Pay Now</button>
 
 </form>
 </div>

@@ -4,6 +4,7 @@ import json
 from mpesa.exceptions import MpesaInvalidParameterException
 # from .utils import encrypt_security_credential, mpesa_access_token, format_phone_number, api_base_url, mpesa_config, mpesa_response
 from mpesa.utils import *
+import uuid
 
 
 # from decouple import config
@@ -208,11 +209,11 @@ class MpesaClient:
 
 		party_a = business_short_code
 		party_b = phone_number
-		initiator_username = mpesa_config('MPESA_INITIATOR_USERNAME')
-		initiator_security_credential = encrypt_security_credential(mpesa_config('MPESA_INITIATOR_SECURITY_CREDENTIAL'))
+		initiator_username = mpesa_config('MPESA_INITIATOR_USERNAME_B')
+		initiator_security_credential = encrypt_security_credential(mpesa_config('MPESA_INITIATOR_SECURITY_CREDENTIAL_B'))
 
 		data = {
-			'InitiatorName': initiator_username,
+			'InitiatorName': "Mboa Codes",
 			'SecurityCredential': initiator_security_credential,
 			"CommandID": "BusinessPayToBulk",
 			'SenderIdentifierType': "4",
@@ -228,7 +229,7 @@ class MpesaClient:
 		}
 
 		headers = {
-			'Authorization': 'Bearer ' + mpesa_access_token( ),
+			'Authorization': 'Bearer ' + B_mpesa_access_token(),
 			'Content-type': 'application/json'
 		}
 
@@ -353,7 +354,7 @@ class MpesaClient:
 
 		Initiator = initiator
 		IdentifierType = 4
-		Command_ID = 'AccountBalance'
+		Command_ID = 4
 		url = api_base_url() + 'mpesa/accountbalance/v1/query'
 		passkey = mpesa_config('MPESA_PASSKEY')
 		# MyMpesaTillNumber = mpesa_config('MY_MPESA_TILL_NUMBER')
@@ -444,52 +445,41 @@ class MpesaClient:
 		except Exception as ex:
 			raise MpesaConnectionError(str(ex))
 
-	def Business_payment(self, initiator, amount, Remarks, PartyB,):
+	def Business_payment(self, initiator, amount, ResultURL,Remarks, PartyB,):
 
 		Initiator = initiator
-		Command_ID = "BusinessPayment"
+		Command_ID = "SalaryPayment"
 		amount = amount
 		url = api_base_url() + 'mpesa/b2c/v3/paymentrequest'
 		passkey = mpesa_config('MPESA_PASSKEY_B')
-		# MyMpesaTillNumber = mpesa_config('MY_MPESA_TILL_NUMBER')
-		# url = api_base_url() + 'mpesa/stkpush/v1/processrequest'
 		business_short_code = mpesa_config('MPESA_SHORTCODE_B')
-
-		# mpesa_environment = mpesa_config('MPESA_ENVIRONMENT')
-		# if mpesa_environment == 'sandbox':
-
-		# else:
-		# 	business_short_code = mpesa_config('MPESA_EXPRESS_SHORTCODE_B')
 
 		timestamp = datetime.now( ).strftime('%Y%m%d%H%M%S')
 		password = base64.b64encode((business_short_code + passkey + timestamp).encode('ascii')).decode('utf-8')
-
+		party_b = "254708534184"
 		party_a = mpesa_config('MPESA_SHORTCODE_B')
-		SecurityCredential = password
-		QueueTimeOutURL = "http://127.0.0.1:8000/queuetimeouturl"
-		# transaction_type = 'CustomerBuyGoodsOnline'
-		ResultsURL = "http://127.0.0.1:8000/resultsurl"
-		# party_b = '254708534184'
-		party_b = PartyB
+		SecurityCredential ='12834049×Python'
+		queue_time_out_url = "https://junction-dental-clinic.onrender.com/queuetimeouturl"
+		result_url = "https://junction-dental-clinic.onrender.com/results"
 		Occassion = 'Mboa Academy Fee'
-		OriginatorConversationID = 'f972-4d44-860a-95efa588279995078467'
+		OriginatorConversationID =str(uuid.uuid4())
 		data = {
 			'OriginatorConversationID': OriginatorConversationID,
-			'Initiator': Initiator,
+			'InitiatorName': Initiator,
 			'SecurityCredential': SecurityCredential,
-			'Command_ID': Command_ID,
+			'CommandID': Command_ID,
 			'Amount': amount,
 			'PartyA': party_a,
 			'PartyB': party_b,
 			'Remarks': Remarks,
-			'QueueTimeOutURL': QueueTimeOutURL,
-			'ResultsURL': ResultsURL,
+			'QueueTimeOutURL': queue_time_out_url,
+			'ResultURL': result_url,
 			'Occassion': Occassion,
 
 		}
 
 		headers = {
-			'Authorization': 'Bearer ' + B_mpesa_access_token( ),
+			'Authorization': 'Bearer ' + B_mpesa_access_token(),
 			'Content-type': 'application/json'
 		}
 

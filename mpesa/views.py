@@ -38,7 +38,7 @@ def post_paybill(request):
 			print(data)
 			context = {'data': data}
 		# return HttpResponse(response)
-		return render(request, 'plug/posts.html')
+		return render(request, 'mpesa/STK-Response.html')
 	else:
 		form = PaymentForm()
 	return render(request, '/mpesa/Offline.html', {'form': form})
@@ -57,27 +57,28 @@ def post_paybill_view(request):
 
 
 def stk_paybill(request):
-	# Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
-	global context
-	if request.method == 'POST':
-		form = PaymentForm(request.POST)
-		if form.is_valid():
-			phone_number = form.cleaned_data['phone_number']
-			amount = form.cleaned_data['amount']
-			# amount = form.cleaned_data['amount']
-			command_id = 4
-			account_reference = form.cleaned_data['account_reference']
-			transaction_desc = 'sleek_main_hub Account Deposit'
-			callback_url = stk_push_callback_url
-			response = cl.stk_push_Paybill(phone_number, amount, account_reference, transaction_desc, callback_url, command_id)
-			data = response
-			print(data)
-			context = {'data': data}
-		return HttpResponse(response)
-		# return render(request, 'mpesa/STK-Response.html')
+	form = PaymentForm(request.POST)
+        # Use a Safaricom phone number that you have access to,
+	if request.method == 'POST' and  form.is_valid:
+            phone_number = request.POST['phone_number']
+            amount = request.POST['amount']
+            account_reference = 'sleek_main_hub Account'
+            transaction_desc = 'sleek_main_hub Account Deposit'
+            callback_url = stk_push_callback_url
+            command_id = 4
+            account_reference = request.POST['account_reference']
+            response = cl.stk_push_Paybill(phone_number, amount, account_reference, transaction_desc, callback_url, command_id)
+            transaction = mpesa_transactions.objects.create(
+            phone_number=phone_number,
+            amount=amount,
+            trans_id=phone_number,
+            transaction_desc="Awaiting status result",
+        )
+            context = {'response': response}
+            return render(request, 'mpesa/STK-Response.html')
 	else:
 		form = PaymentForm()
-	return render(request, '/mpesa/transaction.html', {'form': form})
+	return render(request, 'mpesa/Pay-Bill.html', {'form': form})
 
 def stk(request):
 	form = PaymentForm(request.POST)
@@ -194,7 +195,7 @@ def b2c_payment(request):
                         return HttpResponse(resp)
                 else:
                         form = PaymentForm()
-                return render(request, 'transactions/transaction_report.html', {'form': form})
+                return render(request, 'mpesa/Pay-Bill.html', {'form': form})
 
 
 def Offline(request):
@@ -214,16 +215,14 @@ def Balance_till(request):
 
 
 def BusinessPayment(request):
-        # phone_number = mpesa_config('LNM_PHONE_NUMBER')
 
-        # PartyA = mpesa_config('MPESA_SHORTCODE')
-        initiator = mpesa_config('MPESA_INITIATOR_USERNAME')
-        amount = '2'       # for  link to a form in templates form.cleaned_data['amount']
-        PartyB = '254708534184'
+        initiator = mpesa_config('MPESA_INITIATOR_USERNAME_B')
+        amount = 50       # for  link to a form in templates form.cleaned_data['amount']
+        PartyB = "254708534184"
         Remarks = "ok"
         ResultURL = "http://127.0.0.1:8000/result"
         QueueTimeOutURL = "http://127.0.0.1:8000/queuetimeouturl"
-        r = cl.Business_payment(initiator, amount, PartyB, Remarks)
+        r = cl.Business_payment(initiator, amount, PartyB, Remarks,ResultURL)
         return HttpResponse(r)
 
 
