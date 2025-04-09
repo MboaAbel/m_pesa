@@ -17,7 +17,6 @@ click-didyoumean==0.3.1
 click-plugins==1.1.1
 click-repl==0.3.0
 cron-descriptor==1.4.5
-cryptography @ file:///home/builder/.termux-build/python-cryptography/src
 dj-database-url==2.3.0
 dj-rest-auth==7.0.1
 Django==5.1.6
